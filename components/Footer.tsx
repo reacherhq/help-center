@@ -19,7 +19,17 @@ export const Footer: React.FC<{
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.copyright}>Copyright 2021 Travis Fischer</div>
+      <div className={styles.copyright}>
+        Copyright 2021 Reacher
+        <br />
+        <a
+          href='https://reacher.email'
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          https://reacher.email
+        </a>
+      </div>
 
       <div className={styles.settings}>
         <a
