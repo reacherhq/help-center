@@ -89,7 +89,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
     return <Page404 site={site} pageId={pageId} error={error} />
   }
 
-  const title = getBlockTitle(block, recordMap) || site.name
+  const title = `${
+    getBlockTitle(block, recordMap) || site.name
+  } - Reacher Help Center` // Can I not hardcode this?
 
   console.log('notion page', {
     isDev: config.isDev,
