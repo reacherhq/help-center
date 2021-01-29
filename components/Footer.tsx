@@ -83,7 +83,7 @@ export const Footer: React.FC<{
           target='_blank'
           rel='noopener noreferrer'
         >
-          <img src='/powered-by-vercel.svg' width='120px' />
+          <img src='/powered-by-vercel.svg' />
         </a>
       </div>
     </footer>
