@@ -77,14 +77,13 @@ export const Footer: React.FC<{
         </a>
       </div>
 
-      <div className={styles.vercel}>
-        Powered by &nbsp;&nbsp;
+      <div>
         <a
           href='https://vercel.com?utm_source=reacher&utm_campaign=oss'
           target='_blank'
           rel='noopener noreferrer'
         >
-          <img src='/vercel.svg' width='120px' />
+          <img src='/powered-by-vercel.svg' />
         </a>
       </div>
     </footer>
