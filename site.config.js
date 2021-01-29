@@ -5,7 +5,7 @@ module.exports = {
   // basic site info (required)
   name: 'Reacher Help Center',
   domain: 'help.reacher.email',
-  author: 'Reacer',
+  author: 'Reacher',
 
   // open graph metadata (optional)
   description: 'Reacher Help center',
