@@ -197,3 +197,7 @@ This table of contents uses the same logic that Notion uses for its built-in Tab
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
 Support my open source work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+
+Powered by
+
+[![vercel-logo](https://reacher-help-center.vercel.app/vercel.svg)](https://vercel.com?utm_source=reacher&utm_campaign=oss)
