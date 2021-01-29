@@ -78,7 +78,7 @@ export const Footer: React.FC<{
       </div>
 
       <div className={styles.vercel}>
-        Powered by &nbsp;&nbsp;&nbsp;
+        Powered by &nbsp;&nbsp;
         <a
           href='https://vercel.com?utm_source=reacher&utm_campaign=oss'
           target='_blank'
