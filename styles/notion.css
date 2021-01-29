@@ -177,3 +177,9 @@
   justify-content: center;
   padding: 2em;
 }
+
+/* Make columns display correctly, assuming 2 columns with 1 spacer in the middle */
+.notion-row {
+  display: grid;
+  grid-template-columns: 48% 4% 48%;
+}

@@ -20,7 +20,8 @@ export const Footer: React.FC<{
   return (
     <footer className={styles.footer}>
       <div className={styles.copyright}>
-        Copyright 2021 Reacher -{' '}
+        Copyright 2021 Reacher
+        <br />
         <a
           href='https://reacher.email'
           rel='noopener noreferrer'
