@@ -13,13 +13,13 @@
 
 .notion-page {
   margin: 0 12px;
-  width: 720px;
+  width: var(--notion-max-width);
   padding-bottom: calc(max(5vh, 32px)) !important;
   line-height: 1.65;
 }
 
 .index-page {
-  width: 900px;
+  --notion-max-width: 900px;
 }
 
 .notion-text {
@@ -199,4 +199,15 @@
   background: rgba(249, 250, 251, 1);
   border: 1px solid rgba(229, 231, 235, 1);
   border-radius: 0.375rem;
+}
+
+.notion-link {
+  position: relative;
+  transition: unset;
+}
+
+.notion-link:hover {
+  border-width: 4px;
+  border-image: linear-gradient(90.68deg, #b439df 0.26%, #e5337e 102.37%);
+  border-image-slice: 1;
 }
