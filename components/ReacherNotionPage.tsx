@@ -28,9 +28,7 @@ import { Loading } from './Loading'
 import { Page404 } from './Page404'
 import { PageHead } from './PageHead'
 import { PageActions } from './PageActions'
-import { Footer } from './Footer'
-import { PageSocial } from './PageSocial'
-import { GitHubShareButton } from './GitHubShareButton'
+import { Footer } from './ReacherFooter'
 import { ReactUtterances } from './ReactUtterances'
 
 import styles from './styles.module.css'
@@ -91,7 +89,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
     return <Page404 site={site} pageId={pageId} error={error} />
   }
 
-  const title = getBlockTitle(block, recordMap) || site.name
+  const title = `${
+    getBlockTitle(block, recordMap) || site.name
+  } - Reacher Help Center` // Can I not hardcode this?
 
   console.log('notion page', {
     isDev: config.isDev,
@@ -113,8 +113,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
-  // const isRootPage =
-  //   parsePageId(block.id) === parsePageId(site.rootNotionPageId)
   const isBlogPost =
     block.type === 'page' && block.parent_table === 'collection'
   const showTableOfContents = !!isBlogPost
@@ -143,9 +141,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
     const tweet = getPageTweet(block, recordMap)
     if (tweet) {
       pageAside = <PageActions tweet={tweet} />
+    } else {
+      pageAside = null
     }
-  } else {
-    pageAside = <PageSocial />
   }
 
   return (
@@ -255,8 +253,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
           />
         }
       />
-
-      <GitHubShareButton />
 
       <CustomHtml site={site} />
     </>
