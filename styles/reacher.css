@@ -15,3 +15,8 @@
   margin-top: 0 !important;
   padding-top: 0;
 }
+
+/* Show column title in SaaS pricing page */
+.notion-collection-column-title {
+  display: initial !important;
+}
