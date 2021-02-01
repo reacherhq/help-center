@@ -1,0 +1,17 @@
+/* Make columns display correctly, assuming 2 columns with 1 spacer in the middle */
+.notion-row {
+  display: grid;
+  grid-template-columns: 48% 4% 48%;
+}
+
+/* Don't show title and icon on API Documentation page, only show Redoc */
+.notion-block-84c442bffc1f4feba8612c386dff9a24 .notion-page-icon-wrapper {
+  display: none;
+}
+.notion-block-84c442bffc1f4feba8612c386dff9a24 .notion-title {
+  display: none;
+}
+.notion-block-84c442bffc1f4feba8612c386dff9a24 .notion-page-no-cover {
+  margin-top: 0 !important;
+  padding-top: 0;
+}
