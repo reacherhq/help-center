@@ -5,10 +5,23 @@
  * for optional depenencies.
  */
 
+import { parsePageId } from 'notion-utils'
 import { getSiteConfig, getEnv } from './get-config-value'
 
-// where it all starts -- the site's root Notion page
-export const rootNotionPageId: string = getSiteConfig('rootNotionPageId')
+export const rootNotionPageId: string = parsePageId(
+  getSiteConfig('rootNotionPageId'),
+  { uuid: false }
+)
+
+if (!rootNotionPageId) {
+  throw new Error('Config error invalid "rootNotionPageId"')
+}
+
+// if you want to restrict pages to a single notion workspace (optional)
+export const rootNotionSpaceId: string | null = parsePageId(
+  getSiteConfig('rootNotionSpaceId', null),
+  { uuid: true }
+)
 
 // general site config
 export const name: string = getSiteConfig('name')
@@ -60,10 +73,16 @@ export const isPreviewImageSupportEnabled: boolean = getSiteConfig(
   false
 )
 
-// ----------------------------------------------------------------------------
-
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+
+// where it all starts -- the site's root Notion page
+export const includeNotionIdInUrls: boolean = getSiteConfig(
+  'includeNotionIdInUrls',
+  !!isDev
+)
+
+// ----------------------------------------------------------------------------
 
 export const isServer = typeof window === 'undefined'
 

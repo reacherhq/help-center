@@ -2,6 +2,9 @@ module.exports = {
   // where it all starts -- the site's root Notion page (required)
   rootNotionPageId: 'b21d22a00734457cb8ae44ed9c85b75d',
 
+  // if you want to restrict pages to a single notion workspace (optional)
+  rootNotionSpaceId: null,
+
   // basic site info (required)
   name: 'Reacher Help Center',
   domain: 'help.reacher.email',
@@ -19,8 +22,8 @@ module.exports = {
 
   // default notion icon and cover images for site-wide consistency (optional)
   // page-specific values will override these site-wide defaults
-  defaultPageIcon: null, // URL
-  defaultPageCover: null, // URL
+  defaultPageIcon: null,
+  defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
   // image CDN host to proxy all image requests through (optional)
