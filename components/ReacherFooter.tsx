@@ -70,7 +70,7 @@ export const Footer: React.FC<{
         {config.linkedin && (
           <a
             className={styles.linkedin}
-            href={`https://www.linkedin.com/company/65697842`}
+            href={config.linkedin}
             title={`LinkedIn ${config.author}`}
             target='_blank'
             rel='noopener noreferrer'
