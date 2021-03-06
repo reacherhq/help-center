@@ -7,6 +7,9 @@ import { useRouter } from 'next/router'
 import { useSearchParam } from 'react-use'
 import BodyClassName from 'react-body-classname'
 import useDarkMode from 'use-dark-mode'
+import { PageBlock } from 'notion-types'
+
+import { Tweet, Twitter } from 'react-static-tweets'
 
 // core notion renderer
 import { NotionRenderer, Code, Collection, CollectionRow } from 'react-notion-x'
@@ -48,12 +51,15 @@ import styles from './styles.module.css'
 //   }
 // )
 
-const Tweet = dynamic(
-  () => import('react-notion-x').then((notion) => notion.Tweet),
-  {
-    ssr: false
-  }
+const Pdf = dynamic(() => import('react-notion-x').then((notion) => notion.Pdf))
+
+const Equation = dynamic(() =>
+  import('react-notion-x').then((notion) => notion.Equation)
 )
+
+// we're now using a much lighter-weight tweet renderer react-static-tweets
+// instead of the official iframe-based embed widget from twitter
+// const Tweet = dynamic(() => import('react-tweet-embed'))
 
 const Modal = dynamic(
   () => import('react-notion-x').then((notion) => notion.Modal),
@@ -89,9 +95,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
     return <Page404 site={site} pageId={pageId} error={error} />
   }
 
-  const title = `${
-    getBlockTitle(block, recordMap) || site.name
-  } - Reacher Help Center` // Can I not hardcode this?
+  const title = getBlockTitle(block, recordMap) || site.name
 
   console.log('notion page', {
     isDev: config.isDev,
@@ -102,8 +106,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
   })
 
   if (!config.isServer) {
-    // add important objects global window for easy debugging
+    // add important objects to the window global for easy debugging
     const g = window as any
+    g.pageId = pageId
     g.recordMap = recordMap
     g.block = block
   }
@@ -113,12 +118,19 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
+  // const isRootPage =
+  //   parsePageId(block.id) === parsePageId(site.rootNotionPageId)
   const isBlogPost =
     block.type === 'page' && block.parent_table === 'collection'
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
 
-  const socialImage = config.api.renderSocialImage(pageId)
+  const socialImage =
+    mapNotionImageUrl(
+      (block as PageBlock).format?.page_cover || config.defaultPageCover,
+      block
+    ) || config.api.renderSocialImage(pageId)
+
   const socialDescription =
     getPageDescription(block, recordMap) ?? config.description
 
@@ -141,13 +153,21 @@ export const NotionPage: React.FC<types.PageProps> = ({
     const tweet = getPageTweet(block, recordMap)
     if (tweet) {
       pageAside = <PageActions tweet={tweet} />
-    } else {
-      pageAside = null
     }
+  } else {
+    pageAside = null
   }
 
   return (
-    <>
+    <Twitter.Provider
+      value={{
+        tweetAstMap: (recordMap as any).tweetAstMap || {},
+        swrOptions: {
+          fetcher: (id) =>
+            fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
+        }
+      }}
+    >
       <PageHead site={site} />
 
       <Head>
@@ -228,7 +248,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
           collection: Collection,
           collectionRow: CollectionRow,
           tweet: Tweet,
-          modal: Modal
+          modal: Modal,
+          pdf: Pdf,
+          equation: Equation
         }}
         recordMap={recordMap}
         rootPageId={site.rootNotionPageId}
@@ -255,6 +277,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
       />
 
       <CustomHtml site={site} />
-    </>
+    </Twitter.Provider>
   )
 }
