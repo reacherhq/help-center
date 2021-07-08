@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa'
 import { IoSunnyOutline, IoMoonSharp } from 'react-icons/io5'
 import * as config from 'lib/config'
 
@@ -11,6 +10,7 @@ export const Footer: React.FC<{
   isDarkMode: boolean
   toggleDarkMode: () => void
 }> = ({ isDarkMode, toggleDarkMode }) => {
+  const [hasMounted, setHasMounted] = React.useState(false)
   const toggleDarkModeCb = React.useCallback(
     (e) => {
       e.preventDefault()
@@ -18,6 +18,10 @@ export const Footer: React.FC<{
     },
     [toggleDarkMode]
   )
+
+  React.useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   return (
     <footer className={styles.footer}>
@@ -32,53 +36,17 @@ export const Footer: React.FC<{
         </a>
       </div>
 
-      <div className={styles.settings}>
-        <a
-          className={styles.toggleDarkMode}
-          onClick={toggleDarkModeCb}
-          title='Tottle dark mode'
-        >
-          {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
-        </a>
-      </div>
-
-      <div className={styles.social}>
-        {config.twitter && (
+      {hasMounted ? (
+        <div className={styles.settings}>
           <a
-            className={styles.twitter}
-            href={`https://twitter.com/${config.twitter}`}
-            title={`Twitter @${config.twitter}`}
-            target='_blank'
-            rel='noopener noreferrer'
+            className={styles.toggleDarkMode}
+            onClick={toggleDarkModeCb}
+            title='Tottle dark mode'
           >
-            <FaTwitter />
+            {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
           </a>
-        )}
-
-        {config.github && (
-          <a
-            className={styles.github}
-            href={`https://github.com/${config.github}`}
-            title={`GitHub @${config.github}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaGithub />
-          </a>
-        )}
-
-        {config.linkedin && (
-          <a
-            className={styles.linkedin}
-            href={config.linkedin}
-            title={`LinkedIn ${config.author}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaLinkedin />
-          </a>
-        )}
-      </div>
+        </div>
+      ) : null}
 
       <div>
         <a

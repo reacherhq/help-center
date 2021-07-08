@@ -18,8 +18,8 @@ module.exports = {
 
   // social usernames (optional)
   twitter: null,
-  github: 'reacherhq',
-  linkedin: 'https://www.linkedin.com/company/65697842',
+  github: 'reacherhq/check-if-email-exists',
+  linkedin: null,
 
   // default notion icon and cover images for site-wide consistency (optional)
   // page-specific values will override these site-wide defaults
